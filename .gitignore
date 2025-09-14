@@ -47,6 +47,7 @@ build-info/
 
 # 包含敏感信息的配置文件
 contract-config.json
+js/contract-config.js
 
 # 测试覆盖率
 coverage/
