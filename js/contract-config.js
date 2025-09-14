@@ -51,8 +51,8 @@ async function loadContractConfig() {
             console.error('加载合约配置失败:', error);
             // 返回默认配置以防止错误
             return {
-                NFT_CONTRACT_ADDRESS: "0xxxxxxxxxxxxxxxxxxx3",
-                MARKET_CONTRACT_ADDRESS: "0xxxxxxxxxxxxxxxxxxx33"
+                NFT_CONTRACT_ADDRESS: "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+                MARKET_CONTRACT_ADDRESS: "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512"
             };
         }
     })();
