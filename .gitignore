@@ -49,6 +49,7 @@ build-info/
 contract-config.json
 js/contract-config.js
 
+
 # 测试覆盖率
 coverage/
 *.lcov
