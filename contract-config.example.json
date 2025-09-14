@@ -1,0 +1,28 @@
+{
+  "nftContract": {
+    "address": "YOUR_NFT_CONTRACT_ADDRESS",
+    "deployedAt": "DEPLOYMENT_TIMESTAMP",
+    "deployer": "DEPLOYER_ADDRESS",
+    "balance": "DEPLOYER_BALANCE"
+  },
+  "marketContract": {
+    "address": "YOUR_MARKET_CONTRACT_ADDRESS",
+    "deployedAt": "DEPLOYMENT_TIMESTAMP",
+    "deployer": "DEPLOYER_ADDRESS",
+    "balance": "DEPLOYER_BALANCE"
+  },
+  "network": {
+    "name": "sepolia",
+    "chainId": 11155111,
+    "rpcUrl": "https://sepolia.infura.io/v3/YOUR_INFURA_PROJECT_ID"
+  },
+  "pinata": {
+    "apiKey": "YOUR_PINATA_API_KEY",
+    "secretKey": "YOUR_PINATA_SECRET_KEY",
+    "groupId": "YOUR_PINATA_GROUP_ID",
+    "gateway": "https://gateway.pinata.cloud/ipfs/"
+  },
+  "platformFee": 250,
+  "feeRecipient": "YOUR_FEE_RECIPIENT_ADDRESS",
+  "lastUpdated": "LAST_UPDATE_TIMESTAMP"
+}

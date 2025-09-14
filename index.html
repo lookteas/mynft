@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sepolia NFT 市场演示</title>
+    <!-- 引入 Ethers.js v6 (本地文件) -->
+    <script src="./js/ethers.umd.min.js" type="application/javascript"></script>
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- 顶部导航栏 -->
+        <header class="app-header">
+            <div class="app-title">MY NFT 市场演示</div>
+            <div class="wallet-info">
+                <button id="connect-wallet-btn">连接钱包</button>
+                <div id="wallet-address-display" class="wallet-address hidden"></div>
+                <button id="disconnect-wallet-btn" class="hidden">断开连接</button>
+            </div>
+        </header>
+
+        <!-- 主内容区 -->
+        <main class="app-main">
+            <!-- 首页 -->
+            <section id="home-page" class="page active">
+                <div class="welcome-message">
+                    <h1>欢迎来到 MY NFT 市场演示</h1>
+                    <p>连接您的钱包以开始体验 NFT 的世界。</p>
+
+                    <nav class="main-nav">
+                        <ul>
+                            <li><a href="#mint" onclick="app.showPage('mint')">铸造NFT</a></li>
+                            <li><a href="#my-nfts" onclick="app.showPage('my-nfts')">我的NFT</a></li>
+                            <li><a href="#market" onclick="app.showPage('market')">NFT市场</a></li>
+                            <li><a href="fix-ipfs.html" target="_blank">🔧 IPFS修复工具</a></li>
+                            <li><a href="remint-guide.html" target="_blank">🔄 重新铸造指南</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="feature-cards">
+                    <div class="card">
+                        <h3>我的NFT</h3>
+                        <p>查看您铸造的NFT</p>
+                        <button id="nav-to-my-nft" class="nav-button">进入我的NFT</button>
+                        <div class="card-status hidden" id="home-my-nft-status">请先连接钱包</div>
+                    </div>
+                    <div class="card">
+                        <h3>铸造NFT</h3>
+                        <p>创建您的专属NFT</p>
+                        <button id="nav-to-mint" class="nav-button">开始铸造</button>
+                        <div class="card-status hidden" id="home-mint-status">请先连接钱包</div>
+                    </div>
+                    <div class="card">
+                        <h3>NFT市场</h3>
+                        <p>浏览和购买NFT</p>
+                        <button id="nav-to-market" class="nav-button">进入市场</button>
+                        <div class="card-status hidden" id="home-market-status">请先连接钱包</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 我的NFT页面 -->
+            <section id="my-nft-page" class="page">
+                <div class="page-header">
+                    <h2>我的NFT收藏</h2>
+                    <button id="back-to-home-from-my-nft" class="back-button">返回首页</button>
+                </div>
+                <div id="my-nft-grid" class="nft-grid">
+                    <div class="loading-message">加载中...</div>
+                </div>
+                <div id="my-nft-empty" class="empty-message hidden">
+                    <p>您还没有任何NFT</p>
+                    <button id="go-to-mint-from-my-nft" class="action-button">去铸造NFT</button>
+                </div>
+            </section>
+
+            <!-- 铸造NFT页面 -->
+            <section id="mint-page" class="page">
+                <div class="page-header">
+                    <h2>铸造NFT</h2>
+                    <button id="back-to-home-from-mint" class="back-button">返回首页</button>
+                </div>
+                <div class="mint-container">
+                    <div class="mint-form-container">
+                        <form id="mint-form">
+                            <div class="form-group">
+                                <label for="nft-name">NFT名称:</label>
+                                <input type="text" id="nft-name" required maxlength="50">
+                            </div>
+                            <div class="form-group">
+                                <label for="nft-description">描述:</label>
+                                <textarea id="nft-description" rows="3" maxlength="200"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="nft-image">选择图片:</label>
+                                <input type="file" id="nft-image" accept="image/*" required>
+                            </div>
+                            <div class="image-preview hidden" id="image-preview">
+                                <img id="preview-img" alt="预览图片">
+                            </div>
+                            
+                            <!-- 重新铸造选项 -->
+                            <div class="form-group remint-options">
+                                <div class="checkbox-group">
+                                    <input type="checkbox" id="remint-mode">
+                                    <label for="remint-mode">重新铸造模式（允许铸造多个NFT）</label>
+                                </div>
+                                <div class="form-group" id="fixed-uri-group" style="display: none;">
+                                    <label for="fixed-token-uri">使用修复后的TokenURI（可选）:</label>
+                                    <input type="text" id="fixed-token-uri" placeholder="ipfs://QmXXXXXX...">
+                                    <small class="form-text">如果您有从IPFS修复工具获得的修复后TokenURI，可以在此输入</small>
+                                </div>
+                            </div>
+                            
+                            <button type="submit" class="action-button" disabled>铸造 NFT</button>
+                        </form>
+                        <div id="mint-status" class="status-message small hidden"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- NFT市场页面 -->
+            <section id="market-page" class="page">
+                <div class="page-header">
+                    <h2>NFT市场</h2>
+                    <button id="back-to-home-from-market" class="back-button">返回首页</button>
+                </div>
+                <div class="market-filters">
+                    <div class="filter-group">
+                        <label for="price-sort">价格排序:</label>
+                        <select id="price-sort">
+                            <option value="">默认</option>
+                            <option value="low-to-high">价格从低到高</option>
+                            <option value="high-to-low">价格从高到低</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="market-grid" class="nft-grid">
+                    <div class="loading-message">加载中...</div>
+                </div>
+                <div id="market-empty" class="empty-message hidden">
+                    <p>暂无NFT在售</p>
+                </div>
+            </section>
+        </main>
+
+        <!-- 页脚 -->
+        <footer class="app-footer">
+            <p>&copy; 2025 MY NFT Market Demo | 仅供学习交流</p>
+        </footer>
+    </div>
+
+    <!-- 上架表单 Modal -->
+    <div id="list-nft-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3>上架出售</h3>
+            <form id="list-nft-form">
+                <div class="form-group">
+                    <label for="listing-price">出售价格 (ETH):</label>
+                    <input type="number" id="listing-price" step="0.0001" min="0" required>
+                </div>
+                <input type="hidden" id="list-token-id">
+                <input type="hidden" id="list-nft-contract">
+                <button type="submit" class="action-button">确认上架</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 购买确认 Modal -->
+    <div id="buy-nft-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3>确认购买</h3>
+            <p id="buy-confirm-text">确认购买 <strong></strong> 吗？</p>
+            <p>价格: <strong id="buy-price"></strong></p>
+            <button id="confirm-buy-btn" class="action-button">确认购买</button>
+        </div>
+    </div>
+
+    <!-- 引入模块化 JavaScript -->
+    <!-- 注意 type="module" -->
+    <script src="./js/core.js" type="module"></script>
+</body>
+</html>

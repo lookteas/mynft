@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>重新铸造NFT使用指南</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+            color: #333;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 10px;
+        }
+        .step {
+            background: #f8f9fa;
+            border-left: 4px solid #007bff;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        .step h3 {
+            margin-top: 0;
+            color: #007bff;
+        }
+        .code {
+            background: #f1f3f4;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            word-break: break-all;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 10px 5px;
+        }
+        .button:hover {
+            background: #0056b3;
+        }
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .success {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🔄 重新铸造NFT使用指南</h1>
+        <p>学习如何使用修复后的元数据重新铸造NFT</p>
+    </div>
+
+    <div class="warning">
+        <h3>⚠️ 重要说明</h3>
+        <p>由于区块链的不可变性和ERC-721标准的限制，已铸造的NFT的tokenURI无法直接修改。重新铸造是获得修复后元数据NFT的最佳方案。</p>
+    </div>
+
+    <div class="step">
+        <h3>步骤1：修复IPFS元数据</h3>
+        <p>首先使用IPFS修复工具检查和修复您的NFT元数据：</p>
+        <ol>
+            <li>打开 <a href="fix-ipfs.html" target="_blank">IPFS修复工具</a></li>
+            <li>连接您的钱包</li>
+            <li>点击"修复元数据"按钮</li>
+            <li>等待修复完成，获得新的TokenURI</li>
+        </ol>
+    </div>
+
+    <div class="step">
+        <h3>步骤2：前往铸造页面</h3>
+        <p>有两种方式进入重新铸造流程：</p>
+        <ul>
+            <li><strong>自动跳转：</strong>在IPFS修复工具中点击"前往铸造页面"按钮</li>
+            <li><strong>手动操作：</strong>复制TokenURI后手动前往 <a href="index.html#mint" target="_blank">铸造页面</a></li>
+        </ul>
+    </div>
+
+    <div class="step">
+        <h3>步骤3：启用重新铸造模式</h3>
+        <p>在铸造页面：</p>
+        <ol>
+            <li>勾选"重新铸造模式（允许铸造多个NFT）"</li>
+            <li>如果有修复后的TokenURI，将其粘贴到"使用修复后的TokenURI"输入框中</li>
+            <li>填写NFT名称和描述</li>
+            <li>选择图片文件（如果使用修复后TokenURI，图片将被忽略）</li>
+        </ol>
+    </div>
+
+    <div class="step">
+        <h3>步骤4：铸造新NFT</h3>
+        <p>点击"铸造NFT"按钮，系统将：</p>
+        <ul>
+            <li>如果提供了修复后的TokenURI，直接使用该元数据</li>
+            <li>如果没有提供，将上传新的图片和元数据到IPFS</li>
+            <li>调用智能合约铸造新的NFT</li>
+            <li>支付0.01 ETH的铸造费用</li>
+        </ul>
+    </div>
+
+    <div class="step">
+        <h3>步骤5：查看新铸造的NFT</h3>
+        <p>铸造成功后：</p>
+        <ul>
+            <li>前往 <a href="index.html#my-nfts" target="_blank">我的NFT页面</a> 查看新铸造的NFT</li>
+            <li>新NFT将使用修复后的元数据，显示正确的图片和信息</li>
+            <li>原有的NFT仍然保留，作为历史记录</li>
+        </ul>
+    </div>
+
+    <div class="success">
+        <h3>✅ 重新铸造的优势</h3>
+        <ul>
+            <li><strong>元数据修复：</strong>使用修复后的IPFS链接，确保元数据可访问</li>
+            <li><strong>保持历史：</strong>原NFT作为历史记录保留</li>
+            <li><strong>标准兼容：</strong>遵循ERC-721标准，确保兼容性</li>
+            <li><strong>安全可靠：</strong>通过智能合约确保所有权和真实性</li>
+        </ul>
+    </div>
+
+    <div class="step">
+        <h3>示例TokenURI格式</h3>
+        <p>修复后的TokenURI应该是这样的格式：</p>
+        <div class="code">
+            ipfs://QmYourFixedHashHere123456789abcdef
+        </div>
+        <p>确保以"ipfs://"开头，后跟有效的IPFS哈希值。</p>
+    </div>
+
+    <div style="text-align: center; margin-top: 40px;">
+        <a href="index.html" class="button">返回主页</a>
+        <a href="fix-ipfs.html" class="button">IPFS修复工具</a>
+        <a href="index.html#mint" class="button">开始铸造</a>
+    </div>
+
+    <footer style="text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee; color: #666;">
+        <p>&copy; 2025 Sepolia NFT Market Demo | 重新铸造功能指南</p>
+    </footer>
+</body>
+</html>
